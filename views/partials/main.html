@@ -1,0 +1,18 @@
+<div ng-include="'partials/navbar'"></div>
+
+<div class="jumbotron">
+  <h1>Welcome <span ng-show="currentUser">{{ currentUser.name }}</span>!</h1>
+  <p class="lead">
+    Hope this helps with reviewing these uploads.
+  </p>
+  <p><a class="btn btn-lg btn-success" ng-href="/uploads">View</a></p>
+</div>
+
+<div class="row featured">
+  <div class="col-xs-12">
+    <h3>Featured Uploads</h3>
+    <div ng-include="'partials/upload-list-featured'"></div>
+  </div>
+</div>
+
+<div ng-include="'partials/footer'"></div>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>#HondaLittleLeauge Upload by {{username}}</title>
+  <meta name="description" content="{{description}}">
+  <style media="screen">
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+    }
+    .video-player {
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+    }
+    .center-block {
+      display: block;
+      float: none;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <video class="video-player center-block" id="{{uploadId}}" controls preload="meta">
+    {{#each videos}}
+    <source type="{{mime}}" src="{{ssl_url}}"></source>
+    {{/each}}
+  </video>
+  {{> ga}}
+</body>
+</html>

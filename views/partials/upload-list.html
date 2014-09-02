@@ -1,0 +1,136 @@
+<div ng-include="'partials/navbar.html'"></div>
+
+<div class="row">
+
+  <div class="col-xs-12">
+    <ol class="breadcrumb">
+      <li><a ng-href="/">Home</a></li>
+      <li><a ng-href="/uploads" class="active">Uploads</a></li>
+    </ol>
+  </div>
+
+  <div class="col-xs-12">
+    <h1>Uploads</h1>
+  </div>
+  <div class="col-xs-12 uploads" ng-controller="UploadListCtrl">
+
+    <div class="row controls-container">
+
+      <div class="col-xs-12">
+
+        <div class="row">
+
+          <div class="form">
+
+            <div class="form-group col-xs-12 col-sm-6">
+              <label>Start Date</label>
+              <div class="filter-container input-group" ng-controller="DatePickerCtrlStart">
+                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt" ng-change="startAt(dt)" is-open="opened" min-date="minDate" max-date="maxDate" show-weeks="showWeeks" datepicker-options="dateOptions" ng-required="false" close-text="Done">
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+              </div>
+            </div>
+
+            <div class="form-group col-xs-12 col-sm-6">
+              <label>End Date</label>
+              <div class="filter-container input-group" ng-controller="DatePickerCtrlEnd">
+                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt" ng-change="endAt(dt)" is-open="opened" min-date="minDate" max-date="maxDate" show-weeks="showWeeks" datepicker-options="dateOptions" ng-required="false" close-text="Done">
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="col-xs-12">
+
+        <div class="row" ng-controller="FilterCtrl">
+          <form name="filterForm" class="form">
+            <div class="form-group col-xs-12 col-sm-6">
+              <label for="searchText">Search</label>
+              <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                <input type="search" class="form-control" name="searchText" ng-model="filterService.searchText">
+              </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-3">
+              <label for="tracks">Track</label>
+              <select name="tracks" class="form-control" ng-model="filterService.activeFilters.track" ng-options="t.value as t.label for t in tracks">
+
+              </select>
+            </div>
+            <div class="form-group col-xs-12 col-sm-3">
+              <label for="schools">School</label>
+              <select name="schools" class="form-control" ng-model="filterService.activeFilters.school" ng-options="s.value as s.label for s in schools">
+              </select>
+            </div>
+          </form>
+        </div>
+
+      </div>
+
+      <div class="col-xs-12 col-sm-6">
+
+        <div class="paging-container control-container">
+          <ul class="pager">
+            <li><a ng-href="" ng-click="prev()">Previous</a></li>
+            <li><a ng-href="" ng-click="next()">Next</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="col-sm-6 hidden-xs">
+
+        <div class="rpp-control-containter control-container">
+          <div class="btn-group btn-group-sm">
+            <a class="btn btn-default" title="Limit to 10 Uploads" ng-href="" ng-click="updateRpp(10)">10</a>
+            <a class="btn btn-default" title="Limit to 25 Uploads" ng-href="" ng-click="updateRpp(25)">25</a>
+            <a class="btn btn-default" title="Limit to 50 Uploads" ng-href="" ng-click="updateRpp(50)">50</a>
+            <a class="btn btn-default" title="Limit to 100 Uploads" ng-href="" ng-click="updateRpp(100)">100</a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="row results">
+      <div class="col-xs-12">
+        <ul class="media-list">
+          <li class="media" ng-repeat="upload in uploads | filter:filterService.activeFilters | filter:filterService.searchText" data-upload-id="{{upload.uploadId}}" data-upload-username="{{upload.username}}" data-upload-created-at="{{upload.uploadedAt}}">
+            <a class="pull-left" href="/uploads/{{upload.uploadId}}" title="View Upload {{upload.uploadId}}">
+              <img class="media-object" ng-src="{{upload.thumbnails[0].ssl_url}}">
+            </a>
+            <div class="media-body">
+              <h4 class="media-heading"><a ng-href="/uploads/user/{{upload.userId}}" title="View Uploads By {{upload.username}}">{{upload.username}}</a></h4>
+              <p class="media-text upload-description">{{upload.description}} <a ng-href="/uploads/{{upload.uploadId}}" class="view-detail-link" title="View Detail">View Detail &raquo;</a></p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row controls-container controls-footer">
+      <div class="col-xs-12">
+
+        <div class="paging-container">
+          <ul class="pager">
+            <li><a ng-href="" ng-click="prev()">Previous</a></li>
+            <li><a ng-href="" ng-click="next()">Next</a></li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div ng-include="'partials/footer'"></div>
